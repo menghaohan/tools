@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Convertible Bond</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script src="index.js"></script> -->
+    <script>
+        function cal(){
+            // alert(document.getElementById("prob").value);
+            // alert(document.getElementById("res").innerHTML);
+            var n=parseInt(document.getElementById("n").value);
+            if (n <= 0) {alert("账户总数必须大于0");}
+            var p=parseFloat(document.getElementById("prob").value)/100;
+            if (p<0 || p>100) {alert("中签概率必须在0到1之间")};
+            var result="";
+            for (var i=0;i<=n;i++){
+                result+="中"+i+"签概率: "+(C(n, i)*Math.pow(p, i)*Math.pow(1-p, n-i)).toFixed(4)+"<br>"
+            }
+        document.getElementById("res").innerHTML=result;}
+        function C(n, i) {
+            return parseInt(A(n)/A(i)/A(n-i));
+        }
+        function A(n) {
+            var res=1;
+            for (i=1;i<=n;i++) {
+                res*=i;
+            }
+            return res;
+        }
+    </script>
+</head>
+<body>
+    <div id="main-content">
+        <h1 align="center">
+            可转债中签概率计算
+        </h1>
+        <center>
+            <table>
+                <tr>
+                    <td align="right">顶格申购中签率(%)：</td>
+                    <td><input id="prob" type="number" name="p" max="100" min="0" value="20" step="1"></td>
+                </tr>
+                <tr>
+                    <td align="right">账户总数：</td>
+                    <td><input id="n" type="number" name="n" max="100" min="1" value="5" step="1"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td align="right"><input type="submit" value="开始分析" onclick="cal()"></td>
+                </tr>
+            </table>
+        </center>
+        <p id="res" align="center">
+        </p>
+    </div>
+</body>
+</html>
